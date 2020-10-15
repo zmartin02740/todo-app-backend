@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const Task = require('./models/tasks')
-const port = 4000
+const port = process.env.PORT || 4000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
