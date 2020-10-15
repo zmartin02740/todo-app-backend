@@ -15,6 +15,9 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(port))
   .catch((err) => console.log(err))
 
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
 app.post('/add-task', (req, res) => {
   console.log(req.body, 'request')
   const task = new Task({
