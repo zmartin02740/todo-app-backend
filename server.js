@@ -18,6 +18,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.get('/', (req, res) => {
   res.send('hello world')
 })
+
+// add a new task
 app.post('/add-task', (req, res) => {
   console.log(req.body, 'request')
   const task = new Task({
@@ -32,12 +34,14 @@ app.post('/add-task', (req, res) => {
     .catch((err) => console.log(err))
 })
 
+// get all tasks
 app.get('/all-tasks', (req, res) => {
   Task.find()
     .then((result) => res.send(result))
     .catch((err) => console.log(err))
 })
 
+// delete a task with a given id
 app.post('/delete-task', (req, res) => {
   console.log(req.body)
   Task.findByIdAndRemove(req.body._id)
@@ -45,12 +49,14 @@ app.post('/delete-task', (req, res) => {
     .catch((err) => console.log(err))
 })
 
+// delete all tasks that are completed by removing all tasks that have active set to false
 app.get('/delete-completed', (req, res) => {
   Task.deleteMany({ active: false })
     .then((result) => res.send(result))
     .catch((err) => console.log(err))
 })
 
+// update the active property by setting the boolean to its opposite
 app.post('/update-active', (req, res) => {
   Task.findByIdAndUpdate(req.body._id, { active: req.body.active })
     .then((result) => {
@@ -60,6 +66,7 @@ app.post('/update-active', (req, res) => {
     .catch((err) => console.log(err))
 })
 
+// update the task body with a new string
 app.post('/update-body', (req, res) => {
   Task.findByIdAndUpdate(req.body._id, { body: req.body.body })
     .then((result) => {
